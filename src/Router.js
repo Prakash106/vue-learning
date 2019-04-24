@@ -2,15 +2,27 @@ import Home from './Home.vue';
 import User from './components/User.vue';
 import Post from './components/Post.vue';
 import Friends from './components/Friends.vue';
+import UserStart from './components/UserStart.vue';
+import UserEdit from './components/UserEdit.vue';
+import Header from './layouts/header.vue';
 
 export const routes = [
       {
             path: '/',
-            component: Home
+            name: 'Home',
+            components: {
+                  default: Home,
+                  'header-top': Header
+            }
       },
       {
             path: '/friends',
-            component: Friends
+            name: 'Friends',
+            components: {
+                  default: Friends,
+                  'header-bottom': Header,
+            }
+
       },
       {
             path: '/post',
@@ -18,6 +30,17 @@ export const routes = [
       },
       {
             path: '/user',
-            component: User
+            component: User,
+            children: [
+                  {
+                        path: '' ,
+                        component: UserStart
+                  },
+                  {
+                        path: ':id/edit',
+                        component: UserEdit,
+                        name: 'userEdit'
+                  }
+            ]
       }
 ];
